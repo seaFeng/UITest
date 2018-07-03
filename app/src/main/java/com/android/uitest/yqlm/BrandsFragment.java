@@ -2,6 +2,7 @@ package com.android.uitest.yqlm;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.android.uitest.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,6 +32,8 @@ public class BrandsFragment extends Fragment {
     private MenuAdapter menuAdapter;
     private List<String> menuList = new ArrayList<>();
     private RecyclerView recyclerViewContent;
+    private ContentAdapter contentAdapter;
+    private List<String> contentList = new ArrayList<>();
 
     public static BrandsFragment newInstance(String param1, String param2) {
         BrandsFragment fragment = new BrandsFragment();
@@ -62,27 +66,41 @@ public class BrandsFragment extends Fragment {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerViewMenu.setLayoutManager(linearLayoutManager);
-        recyclerViewContent = rootView.findViewById(R.id.recyclerView_content);
 
         menuAdapter = new MenuAdapter(getMenuData());
         menuAdapter.setCallBack(new MenuAdapter.MenuCallBack(){
 
             @Override
             public void click(int position) {
-                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                int firstVisibleItemPosition = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
                 int lastVisibleItemPosition = linearLayoutManager.findLastCompletelyVisibleItemPosition();
-                Log.e(TAG,"menuRecyclerView的可见的个数 == " + firstVisibleItemPosition + "     " + lastVisibleItemPosition);
-
-                int scrollCount = position + lastVisibleItemPosition;
+                //Log.e(TAG,"menuRecyclerView的可见的个数 == " + firstVisibleItemPosition + "     " + lastVisibleItemPosition);
+                firstVisibleItemPosition = position - firstVisibleItemPosition;
+                int scrollCount = firstVisibleItemPosition + lastVisibleItemPosition;
                 if (scrollCount >= menuList.size()) {
                     scrollCount = menuList.size() - 1;
                 }
                 recyclerViewMenu.scrollToPosition(scrollCount);
+                upDataContent(position);
+
+                contentAdapter.notifyDataSetChanged();
             }
         });
         recyclerViewMenu.setAdapter(menuAdapter);
 
-        //recyclerViewContent.setAdapter();
+        recyclerViewContent = rootView.findViewById(R.id.recyclerView_content);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),3);
+        contentList.add("");
+        contentAdapter = new ContentAdapter(contentList);
+        recyclerViewContent.setAdapter(contentAdapter);
+        recyclerViewContent.setLayoutManager(gridLayoutManager);
+    }
+
+    private void upDataContent(int position) {
+        contentList.clear();
+        for (int i = 0;i <= position;i++) {
+            contentList.add(String.valueOf(i));
+        }
     }
 
     private List<String> getMenuData(){

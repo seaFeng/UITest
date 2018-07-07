@@ -15,7 +15,8 @@ public class MenuSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_select);
-        addFragment(new BrandsFragment());
+        //addFragment(new BrandsFragment());
+        addFragment(new HoistoryFragment());
     }
 
     private void addFragment(Fragment fragment) {

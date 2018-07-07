@@ -5,15 +5,15 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.uitest.R;
+import com.android.uitest.yqlm.adapter.ContentAdapter;
+import com.android.uitest.yqlm.adapter.MenuAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

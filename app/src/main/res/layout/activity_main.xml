@@ -18,9 +18,11 @@
             android:layout_weight="1"
             android:text="多列表选择"/>
         <Button
+            android:id="@+id/main_retrofit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="Retrofit"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

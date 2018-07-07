@@ -1,4 +1,4 @@
-package com.android.uitest.yqlm;
+package com.android.uitest.yqlm.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -57,7 +57,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuHolder> {
         }
     }
 
-    interface MenuCallBack {
+    public interface MenuCallBack {
         void click(int position);
     }
 }
